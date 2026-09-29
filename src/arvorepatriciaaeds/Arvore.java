@@ -8,53 +8,77 @@ public class Arvore {
     
     
     
-    public Arvore(Palavra palavra){
-        this.raiz = new No(palavra);
+    public Arvore(){
+        this.raiz = null;
     }
     
-    public void inserirPalavra(No no, Palavra palavra){
-        this.raiz = inserirPalavraRecursiva(no, palavra);
+    public void inserirPalavra(Palavra palavra){
+        this.raiz = inserirPalavraRecursiva(this.raiz, palavra);
     }
     
-    public No inserirPalavraRecursiva(No no, Palavra palavra){
-        if(no == null){
-            return new No(palavra);
+   
+    public No inserirPalavraRecursiva(No raizAtual, Palavra novaPalavra) {
+        //acha valor do indice da folha mais parecida
+        if (raizAtual == null) {
+            return new No(novaPalavra);
         }
         
-        if(no.isFolha()){//se for folha
-            int indice = no.comparar(palavra);//acha indice diferente e retorna
-            //se indice for igual a 128 quer dizer que as chaves sao iguais
-            if(indice == 128){//adiciona posicao
-                no.adicionarOcorrencia(palavra.getPosicao());
+        No folhaEncontrada = raizAtual;
+        //procurar folha mais parecida
+        while (!folhaEncontrada.isFolha()) {
+            int bit = novaPalavra.getBitDaPalavra(novaPalavra.getChave(), folhaEncontrada.getIndice());
+            if (bit == 1) {
+                folhaEncontrada = folhaEncontrada.getSad();
+            } else {
+                folhaEncontrada = folhaEncontrada.getSae();
             }
-            else{//se for diferente 
-                No temp = no;
-                no.alterarNo(indice);//define como folha = false e indice = indice diferente
-                if(palavra.getChave().charAt(no.getIndice()) == 1){// se o bit da chave da palavra for igual a 1
-                    no.setSad(new No(palavra));//sad vira novo no
-                    no.setSae(new No(no.getPalavra()));
+        }
+    
+        //compara a folha encontrada com a nova palavra
+        int indiceDiferente = folhaEncontrada.comparar(novaPalavra);
+    
+        // se for igual a palavra ja existe
+        if (indiceDiferente == 128) {
+            folhaEncontrada.adicionarOcorrencia(novaPalavra.getPosicao());
+            return raizAtual;
+        }
+        else{//inserir no lugar certo
+            return inserirEntre(raizAtual, novaPalavra, indiceDiferente);    
+        }
+    }
+    
+    private No inserirEntre(No noAtual, Palavra novaPalavra, int indiceDiferente) {
+        // se achou uma folha ou achou um nó interno que testa um bit maior ou igual
+        if (noAtual.isFolha() || (noAtual.getIndice() >= indiceDiferente)) {
+            // cria a nova folha que vai guardar a nova palavra
+            No novaFolha = new No(novaPalavra);
+            // cria o novo no interno
+            No novoInterno = new No(); 
+            novoInterno.alterarNo(indiceDiferente); //folha=false e indice = indiceDiferente
+
+            int bitDaNovaPalavra = novaPalavra.getBitDaPalavra(novaPalavra.getChave(), indiceDiferente);
+        
+                if (bitDaNovaPalavra == 1) {
+                    novoInterno.setSad(novaFolha);
+                    novoInterno.setSae(noAtual); // o no anterior desce para a esquerda
+                } 
+                else {
+                    novoInterno.setSae(novaFolha);
+                    novoInterno.setSad(noAtual); // o no anterior desce para a direita
                 }
-                else{
-                    no.setSae(new No(palavra));//sae vira novo no
-                    no.setSad(new No(no.getPalavra()));
-                }
-            }
-        }
-        else{ //no nao e folha
-            //se o bit da chave da palavra no indice for igual a 1, ele vai para sad
-            if(palavra.getChave().charAt(no.getIndice()) == 1){
-                return inserirPalavraRecursiva(no.getSad(), palavra);
-            }
-            //se o bit da chave da palavra no indice for 0 ele vai para sae
-            else{
-                return inserirPalavraRecursiva(no.getSae(), palavra);
-            }
+            return novoInterno;
         }
         
-        
-        
-        return null;
-    }
+        //se nao achar um indice maior ou uma folha desce novamente 
+        int bit = novaPalavra.getBitDaPalavra(novaPalavra.getChave(), noAtual.getIndice());
+        if (bit == 1) {
+            noAtual.setSad(inserirEntre(noAtual.getSad(), novaPalavra, indiceDiferente));
+        } 
+        else {
+            noAtual.setSae(inserirEntre(noAtual.getSae(), novaPalavra, indiceDiferente));
+        }
     
+        return noAtual;
+    }
 }
 
