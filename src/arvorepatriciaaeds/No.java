@@ -17,6 +17,34 @@ public class No {
         this.palavra = palavra;
     }
     
+    public Palavra getPalavra(){
+        return this.palavra;
+    }
+    
+    public void setSad(No no){
+        this.sad = no;
+    }
+    
+    public No getSad(){
+        return this.sad;
+    }
+    
+    public No getSae(){
+        return this.sae;
+    }
+    
+    public int getIndice(){
+        return this.indice;
+    }
+    
+    public void setSae(No no){
+        this.sae = no;
+    }
+
+    public boolean isFolha() {
+        return folha;
+    }
+    
     public void adicionarOcorrencia(Posicao posicao){
         this.palavra.adicionarPosicao(posicao); //adiciona nova posicao
     }
@@ -26,19 +54,20 @@ public class No {
         for(int i = 0; i < 16; i++){
             if(this.palavra.getChave().charAt(i) != chave.charAt(i)){//se letra for diferente olhar o bit diferente
                 for (int j = 7; j >= 0; j--) { //olhar cada bit por vez
-                //comeca pelo menos significativo
+                //comeca pelo mais significativo
                     
-                    int bit1 = (this.palavra.getChave().charAt(i) >> j) & 1; //pega o bit
-                    int bit2 = (chave.charAt(i) >> j) & 1;
-                
+                    int bit1 = (this.palavra.getChave().charAt(i) >> j) & 1; //pega o bit da chave do no
+                    int bit2 = (chave.charAt(i) >> j) & 1;//pega o bit da chave da palavra que esta tentando ser adicionada
+                    
                     if (bit1 != bit2) {
-                        return (i * 8) + (7-j); //retorna indici global de 0 a 127
+                        return (i * 8) + (7-j); //retorna indice global de 0 a 127
+                        
                     }
                 }
             }
         }
         
-        return -1; //se as chaves forem iguais
+        return 128; //se as chaves forem iguais
     }
     
 
