@@ -17,6 +17,14 @@ public class No {
         this.palavra = palavra;
     }
     
+    public No(){
+        this.sad = null;
+        this.sae = null;
+        this.indice = 0;
+        this.folha = true;
+        this.palavra = null;
+    }
+    
     public Palavra getPalavra(){
         return this.palavra;
     }
@@ -70,7 +78,6 @@ public class No {
         return 128; //se as chaves forem iguais
     }
     
-
     
     public void alterarNo(int indice){
         this.folha = false;
