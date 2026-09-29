@@ -23,6 +23,13 @@ public class Palavra {
         return this.chave;
     }
     
+    public int getBitDaPalavra(String chave, int indice){
+        int charPos = indice / 8; //acha o char diferente
+        int bitPos = 7 - (indice % 8); //acha qual bit do char
+        int bitDaPalavra = (this.getChave().charAt(charPos) >> bitPos) & 1; //pega o bit do indice
+        return bitDaPalavra;
+    }
+    
     public Posicao getPosicao(){
         return posicoes.getFirst();
     }
