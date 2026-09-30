@@ -93,9 +93,9 @@ public class ArvorePatriciaAEDS {
     
     public static void fazerBuscas(Arvore arvore, String[] palavras){
         for(String p: palavras){
-            Palavra encontrada = arvore.busca(p);
+            No encontrada = arvore.busca(arvore.getRaiz(), p);
             if(encontrada != null){
-                ArrayList<Posicao> posicao = encontrada.getPosicoes();
+                ArrayList<Posicao> posicao = encontrada.getPalavra().getPosicoes();
                 System.out.println("Palavra: -" + p + "-  Encontrada " + posicao.size() + " vezes");
                 System.out.println("Posicoes: ");
                 for(Posicao pos: posicao){
