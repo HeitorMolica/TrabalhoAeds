@@ -89,7 +89,7 @@ public class Arvore {
         if (raizAtual == null) {
             return null;
         }
-        
+                
         No folhaEncontrada = raizAtual;
         //procurar folha
         while (!folhaEncontrada.isFolha()) {
@@ -109,7 +109,7 @@ public class Arvore {
     
         // se for igual, e a mesma palavra 
         if (indiceDiferente == 128) {
-            return raizAtual;
+            return folhaEncontrada;
         }
         return null;
     }    
