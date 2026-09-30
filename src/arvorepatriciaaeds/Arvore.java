@@ -12,6 +12,10 @@ public class Arvore {
         this.raiz = null;
     }
     
+    public No getRaiz(){
+        return this.raiz;
+    }
+    
     public void inserirPalavra(Palavra palavra){
         this.raiz = inserirPalavraRecursiva(this.raiz, palavra);
     }
@@ -80,5 +84,34 @@ public class Arvore {
     
         return noAtual;
     }
+
+    public No busca(No raizAtual ,String p) {
+        if (raizAtual == null) {
+            return null;
+        }
+        
+        No folhaEncontrada = raizAtual;
+        //procurar folha
+        while (!folhaEncontrada.isFolha()) {
+            int charPos = folhaEncontrada.getIndice() / 8; //acha o char diferente
+            int bitPos = 7 - (folhaEncontrada.getIndice() % 8); //acha qual bit do char
+            int bitDaPalavra = (p.charAt(charPos) >> bitPos) & 1; //pega o bit do indice
+            
+            if (bitDaPalavra == 1) {
+                folhaEncontrada = folhaEncontrada.getSad();
+            } else {
+                folhaEncontrada = folhaEncontrada.getSae();
+            }
+        }
+    
+        //compara a folha encontrada com a nova palavra
+        int indiceDiferente = folhaEncontrada.comparar(p);
+    
+        // se for igual, e a mesma palavra 
+        if (indiceDiferente == 128) {
+            return raizAtual;
+        }
+        return null;
+    }    
 }
 
