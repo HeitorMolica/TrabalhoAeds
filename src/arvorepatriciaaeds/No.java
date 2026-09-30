@@ -78,6 +78,27 @@ public class No {
         return 128; //se as chaves forem iguais
     }
     
+    public int comparar(String palavra){
+        String chave = palavra;
+        for(int i = 0; i < 16; i++){
+            if(this.palavra.getChave().charAt(i) != chave.charAt(i)){//se letra for diferente olhar o bit diferente
+                for (int j = 7; j >= 0; j--) { //olhar cada bit por vez
+                //comeca pelo mais significativo
+                    
+                    int bit1 = (this.palavra.getChave().charAt(i) >> j) & 1; //pega o bit da chave do no
+                    int bit2 = (chave.charAt(i) >> j) & 1;//pega o bit da chave da palavra que esta tentando ser adicionada
+                    
+                    if (bit1 != bit2) {
+                        return (i * 8) + (7-j); //retorna indice global de 0 a 127
+                        
+                    }
+                }
+            }
+        }
+        
+        return 128; //se as chaves forem iguais
+    }
+    
     
     public void alterarNo(int indice){
         this.folha = false;
