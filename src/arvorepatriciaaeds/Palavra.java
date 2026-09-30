@@ -34,6 +34,10 @@ public class Palavra {
         return posicoes.getFirst();
     }
     
+    public ArrayList<Posicao> getPosicoes(){
+        return posicoes;
+    }
+    
     public String formatarChave(String chave){ //deixa a palavra com 16 caracteres
         StringBuilder sb = new StringBuilder(chave);
         if(sb.length() > 16){
