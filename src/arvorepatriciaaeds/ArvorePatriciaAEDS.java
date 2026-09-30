@@ -3,20 +3,40 @@ package arvorepatriciaaeds;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class ArvorePatriciaAEDS {
     public static void main(String[] args) {
-        //Palavra palavraIinicial1, palavraInicial2;
-        //Arvore arvore1 = new Arvore(Palavra palavraInicial1);
-        //Arvore arvore2 = new Arvore(Palavra palavraInicial2);
-        inserirArquivo(new File("exemplo1.txt"));
-        inserirArquivo(new File("exemplo1.txt"));
+        Arvore arvore1 = new Arvore();
+        inserirArquivo(new File("exemplo1.txt"), arvore1);
         
+        String[] palavrasExemplo1 = {
+            "trabalho", "computacao", "governo", "educacao", 
+            "tecnologia", "formacao", "desenvolvimento", 
+            "que", "informatica", "em", "crise"
+        };
+        
+        System.out.println("=== RESULTADOS EXEMPLO 1 ===");
+        
+        fazerBuscas(arvore1, palavrasExemplo1);
+        
+        Arvore arvore2 = new Arvore();
+        inserirArquivo(new File("exemplo2.txt"), arvore2);
+        
+        String[] palavrasExemplo2 = {
+            "sociedade", "software", "ideia", "pessoa", 
+            "Informatica", "etica", "muito", "ciencia", 
+            "computacao", "que", "area", "moral"
+        };
+        
+        System.out.println("=== RESULTADOS EXEMPLO 2 ===");
+        
+        fazerBuscas(arvore2, palavrasExemplo2);
     }
     
-    public static void inserirArquivo(File file){
+    public static void inserirArquivo(File file, Arvore arvore){
         int coluna = 1;
         int linha = 1;
         String palavra = "";
@@ -51,7 +71,7 @@ public class ArvorePatriciaAEDS {
             else{//espaco, pontuacao ou \n
                 if(!palavra.isEmpty()){ // adiciona palavra
                     //System.out.println("Palavra: " + palavra + "l: " + linhaPalavra + "c: " + colunaPalavra);
-                    //arvore.inserirPalavra(new Palavra(palavra, linhaPalavra, colunaPalavra));
+                    arvore.inserirPalavra(new Palavra(palavra, linhaPalavra, colunaPalavra));
                     palavra = "";// esvazia a palavra
                 }
                 
@@ -69,6 +89,22 @@ public class ArvorePatriciaAEDS {
             
         }
         scanner.close();
+    }
+    
+    public static void fazerBuscas(Arvore arvore, String[] palavras){
+        for(String p: palavras){
+            Palavra encontrada = arvore.busca(p);
+            if(encontrada != null){
+                ArrayList<Posicao> posicao = encontrada.getPosicoes();
+                System.out.println("Palavra: -" + p + "-  Encontrada " + posicao.size() + " vezes");
+                System.out.println("Posicoes: ");
+                for(Posicao pos: posicao){
+                    System.out.println(pos.getPosicao());
+                }
+                System.out.println("");
+            }else
+                System.out.println("Palavra " + p + " nao encontrada!");
+        }
     }
     
     public static boolean eletra(char c){
