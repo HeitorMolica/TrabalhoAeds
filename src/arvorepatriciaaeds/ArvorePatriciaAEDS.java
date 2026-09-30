@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class ArvorePatriciaAEDS {
     public static void main(String[] args) {
-        /*Arvore arvore1 = new Arvore();
+        Arvore arvore1 = new Arvore();
         inserirArquivo(new File("exemplo1.txt"), arvore1);
         
         String[] palavrasExemplo1 = {
@@ -34,14 +34,16 @@ public class ArvorePatriciaAEDS {
         System.out.println("=== RESULTADOS EXEMPLO 2 ===");
         
         fazerBuscas(arvore2, palavrasExemplo2);
-    */
-        System.out.println("Resultados teste");
+    
+    /*    System.out.println("Resultados teste");
         Arvore arvoreTeste = new Arvore();
         inserirArquivo(new File("teste.txt"), arvoreTeste);
         String[] palavrasExemplo3 = {
-            "carro", "aviao", "moto"
+            "carro", "aviao", "moto", "bola", "bota","bolaa", "bolaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "testeaaaaaaaaaaaaaaaaaaaaaaaa", "testeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", " "
         };
         fazerBuscas(arvoreTeste, palavrasExemplo3);
+    */
     }
     
     public static void inserirArquivo(File file, Arvore arvore){
@@ -78,7 +80,7 @@ public class ArvorePatriciaAEDS {
             }
             else{//espaco, pontuacao ou \n
                 if(!palavra.isEmpty()){ // adiciona palavra
-                    System.out.println("Palavra: " + palavra + " l: " + linhaPalavra + "c: " + colunaPalavra);
+                    //System.out.println("Palavra: " + palavra + " l: " + linhaPalavra + "c: " + colunaPalavra);
                     arvore.inserirPalavra(new Palavra(palavra, linhaPalavra, colunaPalavra));
                     palavra = "";// esvazia a palavra
                 }
@@ -113,14 +115,14 @@ public class ArvorePatriciaAEDS {
             No encontrada = arvore.busca(arvore.getRaiz(), p);
             if(encontrada != null){
                 ArrayList<Posicao> posicao = encontrada.getPalavra().getPosicoes();
-                System.out.println("Palavra: -" + p + "-  Encontrada " + posicao.size() + " vezes");
+                System.out.println("Palavra: " + p + " Encontrada " + posicao.size() + " vezes");
                 System.out.println("Posicoes: ");
                 for(Posicao pos: posicao){
                     System.out.println(pos.getPosicao());
                 }
                 System.out.println("");
             }else
-                System.out.println("Palavra " + p + " nao encontrada!");
+                System.out.println("Palavra " + p + " nao encontrada");
         }
     }
     
