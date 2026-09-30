@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class ArvorePatriciaAEDS {
     public static void main(String[] args) {
-        Arvore arvore1 = new Arvore();
+        /*Arvore arvore1 = new Arvore();
         inserirArquivo(new File("exemplo1.txt"), arvore1);
         
         String[] palavrasExemplo1 = {
@@ -34,6 +34,14 @@ public class ArvorePatriciaAEDS {
         System.out.println("=== RESULTADOS EXEMPLO 2 ===");
         
         fazerBuscas(arvore2, palavrasExemplo2);
+    */
+        System.out.println("Resultados teste");
+        Arvore arvoreTeste = new Arvore();
+        inserirArquivo(new File("teste.txt"), arvoreTeste);
+        String[] palavrasExemplo3 = {
+            "carro", "aviao", "moto"
+        };
+        fazerBuscas(arvoreTeste, palavrasExemplo3);
     }
     
     public static void inserirArquivo(File file, Arvore arvore){
@@ -43,7 +51,7 @@ public class ArvorePatriciaAEDS {
         int colunaPalavra = 1;
         int linhaPalavra = 1;
         Scanner scanner = null;
-        try {
+          try {
             scanner = new Scanner(file);
         } catch (FileNotFoundException ex) {
             System.out.println("Erro ao abrir arquivo");;
@@ -70,7 +78,7 @@ public class ArvorePatriciaAEDS {
             }
             else{//espaco, pontuacao ou \n
                 if(!palavra.isEmpty()){ // adiciona palavra
-                    //System.out.println("Palavra: " + palavra + "l: " + linhaPalavra + "c: " + colunaPalavra);
+                    System.out.println("Palavra: " + palavra + " l: " + linhaPalavra + "c: " + colunaPalavra);
                     arvore.inserirPalavra(new Palavra(palavra, linhaPalavra, colunaPalavra));
                     palavra = "";// esvazia a palavra
                 }
@@ -93,6 +101,15 @@ public class ArvorePatriciaAEDS {
     
     public static void fazerBuscas(Arvore arvore, String[] palavras){
         for(String p: palavras){
+            StringBuilder sb = new StringBuilder(p);
+            if(sb.length() > 16){
+                p = sb.substring(0, 16);
+            }
+            while(sb.length() < 16){//preenche com espacos ate ter 16 caracteres
+                sb.append(' ');
+            }
+            p = sb.toString();
+            
             No encontrada = arvore.busca(arvore.getRaiz(), p);
             if(encontrada != null){
                 ArrayList<Posicao> posicao = encontrada.getPalavra().getPosicoes();
