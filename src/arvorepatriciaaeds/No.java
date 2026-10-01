@@ -21,7 +21,7 @@ public class No {
         this.sad = null;
         this.sae = null;
         this.indice = 0;
-        this.folha = true;
+        this.folha = false;
         this.palavra = null;
     }
     

@@ -9,7 +9,8 @@ public class Palavra {
 
 
     public Palavra(String chave, Posicao posicao){
-        this.chave = chave;
+        this.chave = formatarChave(chave);
+        this.posicoes = new ArrayList<>();
         this.posicoes.add(posicao);
     }
     
@@ -23,11 +24,15 @@ public class Palavra {
         return this.chave;
     }
     
-    public int getBitDaPalavra(String chave, int indice){
+    public int getBitDaPalavra(int indice){
         int charPos = indice / 8; //acha o char diferente
         int bitPos = 7 - (indice % 8); //acha qual bit do char
         int bitDaPalavra = (this.getChave().charAt(charPos) >> bitPos) & 1; //pega o bit do indice
         return bitDaPalavra;
+    }
+
+    public ArrayList<Posicao> getPosicoes() {
+        return this.posicoes;
     }
     
     public Posicao getPosicao(){

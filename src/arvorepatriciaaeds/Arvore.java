@@ -4,9 +4,6 @@ package arvorepatriciaaeds;
 public class Arvore {
     
     private No raiz;
-    private String nome;
-    
-    
     
     public Arvore(){
         this.raiz = null;
@@ -26,7 +23,7 @@ public class Arvore {
         No folhaEncontrada = raizAtual;
         //procurar folha mais parecida
         while (!folhaEncontrada.isFolha()) {
-            int bit = novaPalavra.getBitDaPalavra(novaPalavra.getChave(), folhaEncontrada.getIndice());
+            int bit = novaPalavra.getBitDaPalavra(folhaEncontrada.getIndice());
             if (bit == 1) {
                 folhaEncontrada = folhaEncontrada.getSad();
             } else {
@@ -56,7 +53,7 @@ public class Arvore {
             No novoInterno = new No(); 
             novoInterno.alterarNo(indiceDiferente); //folha=false e indice = indiceDiferente
 
-            int bitDaNovaPalavra = novaPalavra.getBitDaPalavra(novaPalavra.getChave(), indiceDiferente);
+            int bitDaNovaPalavra = novaPalavra.getBitDaPalavra(indiceDiferente);
         
                 if (bitDaNovaPalavra == 1) {
                     novoInterno.setSad(novaFolha);
@@ -70,7 +67,7 @@ public class Arvore {
         }
         
         //se nao achar um indice maior ou uma folha desce novamente 
-        int bit = novaPalavra.getBitDaPalavra(novaPalavra.getChave(), noAtual.getIndice());
+        int bit = novaPalavra.getBitDaPalavra(noAtual.getIndice());
         if (bit == 1) {
             noAtual.setSad(inserirEntre(noAtual.getSad(), novaPalavra, indiceDiferente));
         } 
@@ -79,6 +76,30 @@ public class Arvore {
         }
     
         return noAtual;
+    }
+    
+    public Palavra busca(String palavraBuscada){   //procura a palavra na arvore
+        if(raiz == null){
+            return null;
+        }
+        
+        Palavra palavraAux = new Palavra(palavraBuscada, null);   // palavra auxiliar
+        
+        No folhaEncontrada = this.raiz;    // No que vai navegar na arvore
+        
+        while(!folhaEncontrada.isFolha()){   // continua navegando ate ser um no folha
+            int bit = palavraAux.getBitDaPalavra(folhaEncontrada.getIndice());   // pega o bit da palavra na posição indicada pelo nó
+            if(bit==1){
+                folhaEncontrada = folhaEncontrada.getSad();                 // se for 1 vai pro no a direita
+            }
+            else 
+                folhaEncontrada = folhaEncontrada.getSae();                 // se for 0 vai pro no a esquerda
+        }
+        
+        if(folhaEncontrada.comparar(palavraAux) == 128){   // compara a palavra buscada com a palavra do no folha
+            return folhaEncontrada.getPalavra();
+        }
+        return null;
     }
 }
 

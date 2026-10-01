@@ -11,6 +11,6 @@ public class Posicao {
     }
     
     public String getPosicao(){
-        return "L: " + linha + "C: " + coluna;
+        return "L: " + linha + " C: " + coluna;
     }
 }
