@@ -12,7 +12,7 @@ public class ArvorePatriciaAEDS {
         Arvore arvore1 = new Arvore();
         inserirArquivo(new File("exemplo1.txt"), arvore1);
         
-        String[] palavrasExemplo1 = {
+        String[] palavrasExemplo1 = {                                       // guarda em um array as palavras para o teste 2
             "trabalho", "computacao", "governo", "educacao", 
             "tecnologia", "formacao", "desenvolvimento", 
             "que", "informatica", "em", "crise"
@@ -20,20 +20,20 @@ public class ArvorePatriciaAEDS {
         
         System.out.println("=== RESULTADOS EXEMPLO 1 ===");
         
-        fazerBuscas(arvore1, palavrasExemplo1);
+        fazerBuscas(arvore1, palavrasExemplo1);                         // printa o resultado das buscas exemplo1
         
         Arvore arvore2 = new Arvore();
         inserirArquivo(new File("exemplo2.txt"), arvore2);
         
         String[] palavrasExemplo2 = {
-            "sociedade", "software", "ideia", "pessoa", 
+            "sociedade", "software", "ideia", "pessoa",             // guarda em um array as palavras para o teste 2
             "Informatica", "etica", "muito", "ciencia", 
             "computacao", "que", "area", "moral"
         };
         
         System.out.println("=== RESULTADOS EXEMPLO 2 ===");
         
-        fazerBuscas(arvore2, palavrasExemplo2);
+        fazerBuscas(arvore2, palavrasExemplo2);                         // printa o resultado das buscas exemplo2
     }
     
     public static void inserirArquivo(File file, Arvore arvore){
@@ -93,13 +93,13 @@ public class ArvorePatriciaAEDS {
     
     public static void fazerBuscas(Arvore arvore, String[] palavras){
         for(String p: palavras){
-            Palavra encontrada = arvore.busca(p);
-            if(encontrada != null){
-                ArrayList<Posicao> posicao = encontrada.getPosicoes();
+            Palavra encontrada = arvore.busca(p);           // busca a palavra do array palavras
+            if(encontrada != null){                                 // se encontrar a palavra
+                ArrayList<Posicao> posicao = encontrada.getPosicoes();          // pega as posicoes que essa palavra aparece
                 System.out.println("Palavra: -" + p + "-  Encontrada " + posicao.size() + " vezes");
                 System.out.println("Posicoes: ");
                 for(Posicao pos: posicao){
-                    System.out.println(pos.getPosicao());
+                    System.out.println(pos.getPosicao());                   // printa todas ocorrencias
                 }
                 System.out.println("");
             }else
