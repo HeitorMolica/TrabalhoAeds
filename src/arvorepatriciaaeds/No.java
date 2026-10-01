@@ -21,7 +21,7 @@ public class No {
         this.sad = null;
         this.sae = null;
         this.indice = 0;
-        this.folha = false;
+        this.folha = true;
         this.palavra = null;
     }
     
@@ -78,7 +78,7 @@ public class No {
         return 128; //se as chaves forem iguais
     }
     
-    
+                    
     public void alterarNo(int indice){
         this.folha = false;
         this.indice = indice;
